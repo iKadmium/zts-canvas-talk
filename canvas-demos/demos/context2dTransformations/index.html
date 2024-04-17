@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="/src/style.css">
+    <title></title>
+</head>
+
+<body>
+    <h1></h1>
+    <canvas width="800" height="600"></canvas>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; column-gap: 2em;">
+        <label for="translationXBefore">X Translation Before</label>
+        <input type="range" min="-128" max="128" value="0" id="translationXBefore">
+        <span id="translationXBeforeValue"></span>
+        <label for="translationYBefore">Y Translation Before</label>
+        <input type="range" min="-128" max="128" value="0" id="translationYBefore">
+        <span id="translationYBeforeValue"></span>
+        <label for="rotation">Rotation</label>
+        <input type="range" min="0" max="360" step="0.1" value="0" id="rotation">
+        <span id="rotationValue"></span>
+        <label for="translationXAfter">X Translation After</label>
+        <input type="range" min="-128" max="128" value="0" id="translationXAfter">
+        <span id="translationXAfterValue"></span>
+        <label for="translationYAfter">Y Translation After</label>
+        <input type="range" min="-128" max="128" value="0" id="translationYAfter">
+        <span id="translationYAfterValue"></span>
+    </div>
+
+    <script type="module" src="index.ts"></script>
+</body>
+
+</html>
