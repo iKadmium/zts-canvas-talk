@@ -16,6 +16,15 @@ ctx.fillText("I am text", 0, 48);
 </v-click>
 
 <v-click>
+<Demo2DDrawText />
+</v-click>
+
+
+---
+transition: slide-left
+---
+
+# 2D Contex Cont...
 
 - We can draw rectangles
 ```ts
@@ -24,8 +33,15 @@ ctx.rect(8, 8, 64, 64);
 ctx.stroke();
 ```
 
-</v-click>
 <v-click>
+<Demo2DDrawRectangle />
+</v-click>
+
+---
+transition: slide-left
+---
+
+# 2D Contex Cont...
 
 - We can draw ellipses
 ```ts
@@ -33,6 +49,8 @@ ctx.beginPath();
 ctx.ellipse(40, 168, 32, 32, 0, Math.PI, 360);
 ctx.fill();
 ```
+<v-click>
+<Demo2DDrawEllipse />
 </v-click>
 
 ---
@@ -52,6 +70,15 @@ ctx.stroke();
 ```
 
 <v-click>
+<Demo2DDrawAbstractShapes />
+</v-click>
+
+---
+transition: slide-left
+---
+
+# 2D Context Cont...
+
 
 - We can apply transformations
 ```ts
@@ -63,7 +90,12 @@ ctx.stroke();
 ctx.resetTransform();
 ```
 
-</v-click>
+---
+transition: slide-left
+---
+# 2D Context Transformations
+
+<Demo2DTransformations />
 
 ---
 transition: slide-left
@@ -73,13 +105,17 @@ transition: slide-left
 
 Setup:
 ```ts
-function draw(ctx: CanvasRenderingContext2D, time: number) {
+let lastTime = 0;
+
+function draw(time: number) {
+  const dt = (time - lastTime) / 1000;
+  lastTime = time;
   ctx.resetTransform();
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   // draw a frame
 
-  requestAnimationFrame((time) => draw(ctx, time));
+  requestAnimationFrame(draw);
 }
 ```
 
@@ -92,32 +128,47 @@ transition: slide-left
 
 Rotate a square:
 ```ts
-const rotationSpeed = 0.005;
+const rotationSpeed = 5;
+let rotation = 0;
+
+rotation += rotationSpeed * time
 
 ctx.beginPath();
 ctx.translate(64, 64);
-ctx.rotate(rotationSpeed * time);
+ctx.rotate(rotation);
 ctx.translate(-32, -32);
 ctx.rect(0, 0, 64, 64);
 ctx.stroke();
 ```
 
 <v-click>
+<Demo2DAnimationRotateSquare />
+</v-click>
+
+---
+transition: slide-left
+---
+
+# 2D Animation Cont...
 
 Flash a rectangle:
 ```ts
-const colorSpeed = 0.001;
+// setup
+const colorSpeed = 2;
+let value = 0;
+
+// draw
+value += dt * colorSpeed;
 
 ctx.beginPath();
-ctx.translate(8, 128);
+ctx.translate(8, 8);
 ctx.rect(0, 0, 256, 64);
-const brightness = Math.abs(Math.sin(time * colorSpeed));
+const brightness = Math.abs(Math.sin(value));
 ctx.fillStyle = `hsl(0, 0%, ${brightness * 100}%)`;
 ctx.stroke();
 ctx.fill();
 ```
 
-</v-click>
 
 ---
 transition: slide-left
@@ -150,3 +201,11 @@ for (let dimension = 0; dimension < position.length; dimension++) {
 
 ctx.drawImage(logo, position[0], position[1], size[0], size[1]);
 ```
+
+---
+transition: slide-left
+---
+
+# 2D Animation Cont...
+
+<Demo2DAnimationNostalgia />

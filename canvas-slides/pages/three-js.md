@@ -4,7 +4,7 @@
 ```ts
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(1, 1, 1);
-const dimensions = [800, 600];
+const dimensions = [800, 400];
 const camera = new THREE.PerspectiveCamera(45, dimensions[0] / dimensions[1], 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
@@ -48,3 +48,5 @@ transition: slide-left
 ---
 
 # Demo
+
+<DemoThreeCube />

@@ -14,6 +14,8 @@ const vertices = [
 ];
 ```
 
+<v-click>
+
 - Define our colours, one per vertex
 ```ts
 const colors = [
@@ -25,6 +27,7 @@ const colors = [
   // ...
 ];
 ```
+</v-click>
 
 <!-- 
 Another gotcha here. When you define 3D triangles, they have a facing direction, based on the order
@@ -159,11 +162,13 @@ transition: slide-left
 ```ts
 let lastTime = 0;
 
-function draw(gl: WebGL2RenderingContext, modelViewLocation: WebGLUniformLocation, time: number) {
+function draw(time: number) {
   const dt = (time - lastTime) / 1000;
   lastTime = time;
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  rotation += rotationSpeed * dt;
 
   mat4.identity(modelViewMatrix);
   mat4.translate(modelViewMatrix, modelViewMatrix, location);
@@ -173,8 +178,7 @@ function draw(gl: WebGL2RenderingContext, modelViewLocation: WebGLUniformLocatio
 
   gl.drawArrays(gl.TRIANGLES, 0, allVertices.length / 3);
 
-  rotation += rotationSpeed * dt;
-  window.requestAnimationFrame((time) => draw(gl, modelViewLocation, time));
+  window.requestAnimationFrame(draw);
 }
 ```
 
@@ -198,8 +202,6 @@ uniform mat4 a_projectionMatrix;
 out vec4 vColor;
 
 void main() {
-	// gl_Position is a special variable a vertex shader
-	// is responsible for setting
 	gl_Position = a_projectionMatrix * a_modelViewMatrix * a_position;
 	vColor = a_vertexColor;
 }
@@ -230,3 +232,5 @@ transition: slide-left
 ---
 
 # Demo
+
+<DemoWebGLCube />

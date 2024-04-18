@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-const colorSpeed = 2;
-
 const canvasRef = ref<HTMLCanvasElement | null>(null);
+
+const rotationSpeed = 5;
 
 let lastTime = 0;
 
@@ -18,25 +18,24 @@ onMounted(() => {
     }
     const ctx = maybeCtx!;
 
-    let running = 0;
+    let rotation = 0;
     function draw(time: number) {
         const dt = (time - lastTime) / 1000;
         lastTime = time;
+
         ctx.resetTransform();
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        running += dt * colorSpeed;
+        rotation += dt * rotationSpeed;
 
-        ctx.resetTransform();
         ctx.beginPath();
-        ctx.translate(8, 8);
-        ctx.rect(0, 0, 256, 64);
-        const brightness = Math.abs(Math.sin(running));
-        ctx.fillStyle = `hsl(0, 0%, ${brightness * 100}%)`;
+        ctx.translate(64, 64);
+        ctx.rotate(rotation);
+        ctx.translate(-32, -32);
+        ctx.rect(0, 0, 64, 64);
         ctx.stroke();
-        ctx.fill();
 
-        requestAnimationFrame(draw);
+        requestAnimationFrame((time) => draw(time));
     }
 
     draw(0);

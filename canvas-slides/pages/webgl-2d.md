@@ -269,4 +269,6 @@ function draw(gl: WebGL2RenderingContext) {
 transition: slide-left
 ---
 
-# Demo time!
+# WebGL - Demo
+
+<DemoWebGLTriangle />

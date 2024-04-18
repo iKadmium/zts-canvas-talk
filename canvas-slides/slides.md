@@ -83,10 +83,11 @@ src: pages/three-js.md
 
 ---
 transition: slide-left
-src: pages/webgpu-2d.md
+src: pages/webgpu-intro.md
 ---
 
 # WebGPU
+
 
 ---
 transition: slide-left

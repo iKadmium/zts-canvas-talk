@@ -13,9 +13,9 @@ onMounted(() => {
         throw new Error("No context");
     }
 
-    ctx.fillStyle = "black";
-    ctx.font = "48px sans-serif";
-    ctx.fillText("I am text", 0, 48);
+    ctx.beginPath();
+    ctx.ellipse(40, 40, 32, 32, 0, Math.PI, 360);
+    ctx.fill();
 })
 </script>
 <template>

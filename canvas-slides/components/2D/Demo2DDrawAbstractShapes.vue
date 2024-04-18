@@ -13,9 +13,13 @@ onMounted(() => {
         throw new Error("No context");
     }
 
-    ctx.fillStyle = "black";
-    ctx.font = "48px sans-serif";
-    ctx.fillText("I am text", 0, 48);
+    ctx.strokeStyle = "2px solid black";
+    ctx.beginPath();
+    ctx.moveTo(40, 8);
+    ctx.lineTo(72, 72);
+    ctx.lineTo(8, 72);
+    ctx.lineTo(40, 8);
+    ctx.stroke();
 })
 </script>
 <template>
