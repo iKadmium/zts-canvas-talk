@@ -48,12 +48,16 @@ gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(allVertices), gl.STATIC_DRAW);
 ```
 
+<v-click>
+
 - Tell our vertex shader about it
 ```ts
 const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
 gl.enableVertexAttribArray(positionAttributeLocation);
 gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
 ```
+</v-click>
+<v-click>
 
 - And repeat, for the colour buffer
 ```ts
@@ -65,6 +69,7 @@ const colorAttributeLocation = gl.getAttribLocation(program, "a_vertexColor");
 gl.enableVertexAttribArray(colorAttributeLocation);
 gl.vertexAttribPointer(colorAttributeLocation, 4, gl.FLOAT, false, 0, 0);
 ```
+</v-click>
 
 ---
 transition: slide-left

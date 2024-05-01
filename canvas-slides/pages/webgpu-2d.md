@@ -140,16 +140,12 @@ transition: slide-left
 
 # Getting started with WebGPU Cont...
 
-- Our new vertex shader
+- Our first vertex shader
 
 ```wgsl
-struct Vertex {
-    @location(0) position: vec2f,
-};
-
 @vertex
-fn vs(vert: Vertex) -> @builtin(position) vec4f {
-    return vec4f(vert.position, 0.0, 1.0);
+fn vs(@location(0) position: vec2f) -> @builtin(position) vec4f {
+    return vec4f(position, 0.0, 1.0);
 }
 ```
 
@@ -159,7 +155,7 @@ transition: slide-left
 
 # Getting started with WebGPU Cont...
 
-- Our new fragment shader
+- Our first fragment shader
 ```wgsl
 @fragment 
 fn fs() -> @location(0) vec4f {
@@ -172,3 +168,5 @@ transition: slide-left
 ---
 
 # Demo
+
+<DemoWebGPURedTriangle />

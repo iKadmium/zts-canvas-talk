@@ -38,6 +38,17 @@ transition: slide-left
 ```
 </v-click>
 
+<v-click>
+
+- Accessibility is all up to you
+</v-click>
+<v-click>
+
+- User Interaction is all up to you
+</v-click>
+
+
+
 ---
 transition: slide-left
 src: pages/canvas-2d.md
@@ -47,39 +58,18 @@ src: pages/canvas-2d.md
 
 ---
 transition: slide-left
-src: pages/webgl-2d.md
+src: pages/shaders.md
 ---
 
-# WebGL 2D
+# Shaders
 
----
-transition: slide-left
-src: pages/webgl-3d.md
----
-
-# WebGL 3D
 
 ---
 transition: slide-left
+src: pages/webgl-intro.md
 ---
 
-# Seriously?
-
-- All this to render a cube?
-- There are other options
-  - Game Engines
-  - Three.js
-
-<!-- This isn't how you'd actually get stuff done. What I'm demonstrating here is like building a modern website in vanilla Javascript from 15 years ago. 
-  Depending on your goals, there are a number of libraries you can use, or even game engines that will export to WebGL.
-  -->
-
----
-transition: slide-left
-src: pages/three-js.md
----
-
-# Three.js
+# WebGL
 
 ---
 transition: slide-left
@@ -88,11 +78,32 @@ src: pages/webgpu-intro.md
 
 # WebGPU
 
+---
+transition: slide-left
+src: pages/webgpu-2d.md
+---
+
+# WebGPU 2D
+
+---
+transition: slide-left
+src: pages/webgpu-vertex-shaders.md
+---
+
+# WebGPU Vertex Shaders
+
+---
+transition: slide-left
+src: pages/webgpu-fragment-shaders.md
+---
+
+# WebGPU Fragment Shaders
 
 ---
 transition: slide-left
 src: pages/webgpu-compute.md
 ---
+
 
 # Compute Shaders
 

@@ -12,6 +12,7 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "@types/three": "^0.163.0",
+    "@webgpu/types": "^0.1.40",
     "gl-matrix": "^3.4.3",
     "slidev-theme-dracula": "^0.2.0",
     "three": "^0.163.0",
