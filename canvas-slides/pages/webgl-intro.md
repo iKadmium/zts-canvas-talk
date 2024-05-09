@@ -3,6 +3,7 @@
 - A JS implementation of OpenGL
 
 <v-click>
+
 - WebGL 1
   - March 2011
   - Based on OpenGL ES 2.0

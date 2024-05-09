@@ -34,6 +34,12 @@ A vertex shader exists to answer one question:
 </v-click>
 
 <v-click>
+
+A vertex shader is run for every vertex on the screen.
+</v-click>
+
+
+<v-click>
 We can pass information to the shader to help it answer.
 </v-click>
 
@@ -69,6 +75,12 @@ A fragment shader exists to answer one question:
 </v-click>
 
 <v-click>
+
+A pixel shader is run for every pixel on the screen. That's 2,073,600 times for a 1080p image.
+</v-click>
+
+
+<v-click>
 We can pass information to the shader to help it answer.
 </v-click>
 
@@ -78,3 +90,48 @@ We can pass information to the shader to help it answer.
     <li v-click>How strong the light sources are</li>
     <li v-click>The base colour of the object</li>
 </ul>
+
+---
+transition: slide-left
+---
+
+# Compute Shaders
+
+A compute shader exists to do anything else.
+
+<v-click>
+
+*General purpose code that runs on the GPU*
+</v-click>
+<v-click>
+
+Why?
+</v-click>
+<v-click>
+
+- Because GPU cores are pretty good at 32-bit floating point math
+</v-click>
+<v-click>
+
+- Because *some* GPU cores are pretty good at 64-bit floating point math and/or integer math
+</v-click>
+<v-click>
+
+- Because a GPU has hundreds or thousands of cores. This makes them excellent at parallel tasks.
+</v-click>
+<v-click>
+
+Why not?
+</v-click>
+<v-click>
+
+- Because they're bad at branching
+</v-click>
+<v-click>
+
+- Because there's no debugger
+</v-click>
+<v-click>
+
+- Because there isn't even a trace/log
+</v-click>

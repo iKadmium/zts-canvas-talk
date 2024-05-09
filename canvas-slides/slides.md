@@ -5,49 +5,21 @@ layout: cover
 ---
 
 # Canvas
+## From lines to pixel shaders
 
 ---
 transition: slide-left
+src: pages/who-am-i.md
 ---
 
-# Canvas
+# Who Am I?
 
-- Basic HTML element
-<v-click>
+---
+transition: slide-left
+src: pages/canvas-basics.md
+---
 
-- Avaliable everywhere, on everything
-</v-click>
-<v-click>
-
-- Represents pixels that you can rasterize to
-</v-click>
-<v-click>
-
-- Number of pixels specified in the tag
-  - Can be sized with CSS but this scales the content
-</v-click>
-<v-click>
-
-- Interaction is via contexts
-</v-click>
-
-<v-click>
-
-```html
-<canvas width="800" height="600"></canvas>
-```
-</v-click>
-
-<v-click>
-
-- Accessibility is all up to you
-</v-click>
-<v-click>
-
-- User Interaction is all up to you
-</v-click>
-
-
+# Canvas basics
 
 ---
 transition: slide-left

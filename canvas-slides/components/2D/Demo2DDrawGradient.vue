@@ -2,6 +2,10 @@
 import { onMounted, ref } from 'vue';
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 
+const padding = 8;
+const size = 64;
+const center = (size / 2) + padding;
+
 onMounted(() => {
     const canvas = canvasRef.value;
     if (!canvas) {
@@ -13,21 +17,16 @@ onMounted(() => {
         throw new Error("No context");
     }
 
-    ctx.beginPath();
-    ctx.ellipse(40, 40, 32, 32, 0, 0, Math.PI * 2);
-    ctx.fill();
+    const gradient = ctx.createRadialGradient(center, center, 0, center, center, size * 0.5);
+    gradient.addColorStop(0.0, 'red');
+    gradient.addColorStop(0.5, 'magenta');
+    gradient.addColorStop(1.0, 'yellow');
+    ctx.fillStyle = gradient;
 
     ctx.beginPath();
-    ctx.ellipse(120, 40, 32, 32, 0, 0, Math.PI);
+    ctx.rect(padding, padding, size, size);
     ctx.fill();
-
-    ctx.beginPath();
-    ctx.ellipse(200, 40, 32, 32, Math.PI * 0.5, 0, Math.PI);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.ellipse(280, 40, 32, 32, 0, 0, Math.PI * 0.75);
-    ctx.fill();
+    ctx.stroke();
 })
 </script>
 <template>

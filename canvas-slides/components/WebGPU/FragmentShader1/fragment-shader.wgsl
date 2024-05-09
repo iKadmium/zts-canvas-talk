@@ -1,27 +1,37 @@
-@group(0) @binding(0) var<uniform> time: u32;
+struct Uniforms {
+    iResolution: vec2<f32>,
+    iTime: f32,
+};
 
-const redSpeed: f32 = 1.0 / 1000.0; 
-const greenSpeed: f32 = 1.8 / 1000.0; 
-const blueSpeed: f32 = 0.7 / 1000.0; 
+@group(0) @binding(0) var<uniform> uniforms: Uniforms;
 
-const dimensions = vec2f(800.0, 400.0);
+fn palette(t: f32) -> vec3<f32> {
+    let a: vec3<f32> = vec3<f32>(0.5, 0.5, 0.5);
+    let b: vec3<f32> = vec3<f32>(0.5, 0.5, 0.5);
+    let c: vec3<f32> = vec3<f32>(1.0, 1.0, 1.0);
+    let d: vec3<f32> = vec3<f32>(0.263, 0.416, 0.557);
 
-fn sdCircle(p: vec2f, r: f32) -> f32 {
-    return length(p) - r;
+    return a + b * cos(6.28318 * (c * t + d));
 }
 
-@fragment 
-fn fs(@builtin(position) position: vec4<f32>) -> @location(0) vec4f {
-    let uv = position.xy / dimensions - vec2f(0.5, 0.5);
-    let distance = sdCircle(uv, 0.1);
-    
-    var red = abs(sin(f32(time) * redSpeed)) * distance;
-    var green = abs(sin(f32(time) * greenSpeed)) * distance;
-    var blue = abs(sin(f32(time) * blueSpeed)) * distance;
+@fragment
+fn fs(@builtin(position) FragCoord: vec4<f32>) -> @location(0) vec4<f32> {
+    let fragCoord: vec2<f32> = FragCoord.xy;
+    var uv: vec2<f32> = (fragCoord * 2.0 - uniforms.iResolution.xy) / uniforms.iResolution.y;
+    let uv0: vec2<f32> = uv;
+    var finalColor: vec3<f32> = vec3<f32>(0.0, 0.0, 0.0);
 
-    red = smoothstep(red, 0.1, 0.4);
-    green = smoothstep(green, 0.1, 0.3);
-    blue = smoothstep(blue, 0.1, 0.2);
+    for (var i: f32 = 0.0; i < 4.0; i = i + 1.0) {
+        uv = fract(uv * 1.5) - 0.5;
+        var d: f32 = length(uv) * exp(-length(uv0));
+        let col: vec3<f32> = palette(length(uv0) + i * 0.4 + uniforms.iTime * 0.4);
 
-    return vec4f(red, green, blue, 1.0);
+        d = sin(d * 8.0 + uniforms.iTime) / 8.0;
+        d = abs(d);
+        d = pow(0.01 / d, 1.2);
+
+        finalColor = finalColor + (col * d);
+    }
+
+    return vec4<f32>(finalColor, 1.0);
 }

@@ -79,7 +79,7 @@ onMounted(async () => {
             ],
         };
 
-        const uniformData = new Uint32Array(1);
+        const uniformData = new Float32Array(1);
         const uniformBuffer = device.createBuffer({
             label: "Uniform buffer",
             size: uniformData.byteLength,
@@ -113,7 +113,7 @@ onMounted(async () => {
     let lastTime = 0;
     function render(time: number) {
         const dt = (time - lastTime) / 1000;
-        uniformData[0] = time;
+        uniformData[0] = time / 1000;
 
         renderPassDescriptor.colorAttachments[0].view = context?.getCurrentTexture().createView();
 
