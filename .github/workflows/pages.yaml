@@ -30,5 +30,8 @@ jobs:
           node-version: 20
           cache: 'npm'
           
-      - run: npm ci
-      - run: npm run build
+      - name: build
+        run: |
+          npm ci
+          npm build
+        working-directory: ./app
