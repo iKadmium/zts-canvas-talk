@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: tar
-        run: tar -zcf pages.tar.gz dist
+        run: tar -zcf dist.tar.gz dist
 
       - name: Upload Artifact
         if: github.ref == 'refs/heads/main'
