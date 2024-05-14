@@ -13,3 +13,5 @@ fn compute(@builtin(global_invocation_id) id: vec3<u32>) {
     data[i] = data[i] * 2.0;
 }
 ```
+
+<!-- TODO explain workgroup size -->

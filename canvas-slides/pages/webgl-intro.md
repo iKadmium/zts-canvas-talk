@@ -1,7 +1,13 @@
 # WebGL
 
-- A JS implementation of OpenGL
+```ts
+const gl = canvas.getContext('webgl');
+```
 
+<v-click>
+
+- A JS implementation of OpenGL
+</v-click>
 <v-click>
 
 - WebGL 1

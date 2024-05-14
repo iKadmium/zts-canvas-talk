@@ -114,6 +114,10 @@ ctx.stroke();
 ctx.resetTransform();
 ```
 
+<!-- Come up with a way to explain transformations 
+  SWITCH TO THE OTHER TAB FOR THIS
+-->
+
 ---
 transition: slide-left
 ---

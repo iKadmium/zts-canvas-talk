@@ -79,22 +79,6 @@ onMounted(async () => {
             ],
         };
 
-        const uniformData = new Float32Array(1);
-        const uniformBuffer = device.createBuffer({
-            label: "Uniform buffer",
-            size: uniformData.byteLength,
-            usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
-        });
-
-        const uniformBindGroup = device.createBindGroup({
-            layout: pipeline.getBindGroupLayout(0),
-            entries: [
-                {
-                    binding: 0, resource: { buffer: uniformBuffer }
-                }
-            ]
-        });
-
         const vertices = new Float32Array([
             0.0, 0.0,
             0.02, 0.7, 
@@ -113,16 +97,15 @@ onMounted(async () => {
 
         device.queue.writeBuffer(vertexBuffer, 0, vertices);
 
-        return { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformData, uniformBuffer };
+        return { renderPassDescriptor, pipeline, vertexBuffer };
     }
 
-    const { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformBuffer, uniformData } = setup();
+    const { renderPassDescriptor, pipeline, vertexBuffer } = setup();
 
     let lastTime = 0;
     function render(time: number) {
         const dt = (time - lastTime) / 1000;
-        uniformData[0] = time / 1000;
-
+        
         renderPassDescriptor.colorAttachments[0].view = context?.getCurrentTexture().createView();
 
         // make a command encoder to start encoding commands
@@ -131,13 +114,11 @@ onMounted(async () => {
         // make a render pass encoder to encode render specific commands
         const pass = encoder.beginRenderPass(renderPassDescriptor);
         pass.setPipeline(pipeline);
-        pass.setBindGroup(0, uniformBindGroup);
         pass.setVertexBuffer(0, vertexBuffer);
         pass.draw(6, 20); // call our vertex shader 3 times
         pass.end();
 
         const commandBuffer = encoder.finish();
-        device.queue.writeBuffer(uniformBuffer, 0, uniformData);
         device.queue.submit([commandBuffer]);
 
         requestAnimationFrame(render);

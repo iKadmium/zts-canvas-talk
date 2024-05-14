@@ -95,7 +95,15 @@ onMounted(async () => {
             ]
         });
 
-        const vertices = new Float32Array([0, 0.5, -0.5, -0.5, 0.5, -0.5]);
+        const vertices = new Float32Array([
+            0.0, 0.0,
+            0.02, 0.7, 
+            0.01, 0.8,
+
+            0.0, 0.0,
+            0.02, 0.0,
+            0.02, 0.7
+        ]);
 
         const vertexBuffer = device.createBuffer({
             label: "Vertex buffer",
@@ -125,7 +133,7 @@ onMounted(async () => {
         pass.setPipeline(pipeline);
         pass.setBindGroup(0, uniformBindGroup);
         pass.setVertexBuffer(0, vertexBuffer);
-        pass.draw(3); // call our vertex shader 3 times
+        pass.draw(6, 20); // call our vertex shader 3 times
         pass.end();
 
         const commandBuffer = encoder.finish();

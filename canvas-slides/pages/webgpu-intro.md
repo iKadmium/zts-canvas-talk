@@ -1,7 +1,6 @@
 # WebGPU
 
 - A JS API that interfaces with D3D12, Vulkan, Metal, etc
-
 <v-click>
 
 - Essentially invented because making compute shaders work in WebGL was too hard

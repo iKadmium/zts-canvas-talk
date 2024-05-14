@@ -5,6 +5,7 @@ import vertexShaderSource from "./vertex-shader.wgsl?raw";
 import fragmentShaderSource from "./fragment-shader.wgsl?raw";
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
+let enabled = defineModel<boolean>("enabled", { default: false });
 
 onMounted(async () => {
     const canvas = canvasRef.value;
@@ -25,7 +26,7 @@ onMounted(async () => {
         throw new Error("need a browser that supports WebGPU");
     }
 
-    function setup() {
+    function setup(image: HTMLImageElement) {
         const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
         context.configure({
             device,
@@ -53,7 +54,7 @@ onMounted(async () => {
         };
 
         const pipeline = device.createRenderPipeline({
-            label: "our hardcoded red triangle pipeline",
+            label: "Fragment Shader 1 Pipeline",
             layout: "auto",
             vertex: {
                 module: vertexModule,
@@ -79,31 +80,14 @@ onMounted(async () => {
             ],
         };
 
-        const uniformData = new Float32Array(1);
+        const uniformData = new Float32Array(4);
         const uniformBuffer = device.createBuffer({
             label: "Uniform buffer",
             size: uniformData.byteLength,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         });
 
-        const uniformBindGroup = device.createBindGroup({
-            layout: pipeline.getBindGroupLayout(0),
-            entries: [
-                {
-                    binding: 0, resource: { buffer: uniformBuffer }
-                }
-            ]
-        });
-
-        const vertices = new Float32Array([
-            0.0, 0.0,
-            0.02, 0.7, 
-            0.01, 0.8,
-
-            0.0, 0.0,
-            0.02, 0.0,
-            0.02, 0.7
-        ]);
+        const vertices = new Float32Array([-1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1]);
 
         const vertexBuffer = device.createBuffer({
             label: "Vertex buffer",
@@ -113,15 +97,65 @@ onMounted(async () => {
 
         device.queue.writeBuffer(vertexBuffer, 0, vertices);
 
+        const texture = device.createTexture({
+            size: [image.naturalWidth, image.naturalHeight],
+            format: 'rgba8unorm',
+            usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST,
+        });
+
+        const textureCanvas = document.createElement('canvas');
+        textureCanvas.width = image.naturalWidth;
+        textureCanvas.height = image.naturalHeight;
+        const textureCtx = textureCanvas.getContext('2d');
+        if(!textureCtx){
+            throw new Error('Could not create texture canvas');
+        }
+        textureCtx.drawImage(image, 0, 0);
+        const imageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height)
+        
+        device.queue.writeTexture( 
+            { texture },
+            imageData.data,
+            { bytesPerRow: imageData.width * 4 },
+            { width: imageData.width, height: imageData.height },
+        );
+
+        const sampler = device.createSampler();
+
+        const uniformBindGroup = device.createBindGroup({
+            layout: pipeline.getBindGroupLayout(0),
+            entries: [
+                { binding: 0, resource: { buffer: uniformBuffer } },
+                { binding: 1, resource: sampler },
+                { binding: 2, resource: texture.createView() },
+            ]
+        });
+
         return { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformData, uniformBuffer };
     }
 
-    const { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformBuffer, uniformData } = setup();
+    const imagePromise = new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = document.createElement('img');
+        img.addEventListener('load', () => {
+            resolve(img);
+        });
+        img.addEventListener('error', (ev) => {
+            reject(ev);
+        });
+        img.src = '/images/smw.png';
+    });
+    
+    const img = await imagePromise;
+    const { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformBuffer, uniformData } = setup(img);
 
     let lastTime = 0;
+    uniformData[0] = canvas.width;
+    uniformData[1] = canvas.height;
+
     function render(time: number) {
         const dt = (time - lastTime) / 1000;
-        uniformData[0] = time / 1000;
+        uniformData[2] = (time / 1000);
+        uniformData[3] = enabled.value ? 1 : 0;
 
         renderPassDescriptor.colorAttachments[0].view = context?.getCurrentTexture().createView();
 
@@ -133,7 +167,7 @@ onMounted(async () => {
         pass.setPipeline(pipeline);
         pass.setBindGroup(0, uniformBindGroup);
         pass.setVertexBuffer(0, vertexBuffer);
-        pass.draw(6, 20); // call our vertex shader 3 times
+        pass.draw(6); // call our vertex shader 6 times
         pass.end();
 
         const commandBuffer = encoder.finish();
@@ -149,5 +183,6 @@ onMounted(async () => {
 </script>
 
 <template>
-    <canvas width="800" height="400" ref="canvasRef" style="background-color: white;"></canvas>
+    <canvas width="512" height="384" ref="canvasRef" style="background-color: white;"></canvas>
+    <input type="checkbox" v-model="enabled"><label>Enabled</label></input>
 </template>

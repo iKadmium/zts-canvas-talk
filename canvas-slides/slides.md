@@ -16,6 +16,13 @@ src: pages/who-am-i.md
 
 ---
 transition: slide-left
+src: pages/what-will-we-learn.md
+---
+
+# What will we learn?
+
+---
+transition: slide-left
 src: pages/canvas-basics.md
 ---
 
@@ -27,14 +34,6 @@ src: pages/canvas-2d.md
 ---
 
 # Canvas 2D
-
----
-transition: slide-left
-src: pages/shaders.md
----
-
-# Shaders
-
 
 ---
 transition: slide-left
@@ -52,10 +51,21 @@ src: pages/webgpu-intro.md
 
 ---
 transition: slide-left
-src: pages/webgpu-2d.md
+src: pages/shaders.md
 ---
 
-# WebGPU 2D
+
+# Shaders
+
+
+---
+transition: slide-left
+src: pages/webgpu-shaders.md
+---
+
+# Shaders
+
+
 
 ---
 transition: slide-left
@@ -76,11 +86,23 @@ transition: slide-left
 src: pages/webgpu-compute.md
 ---
 
-
 # Compute Shaders
+
+---
+transition: slide-left
+src: pages/recap.md
+---
+
+# Recap
 
 ---
 transition: slide-left
 ---
 
-# Other stuff
+# That's It
+
+Thank you all for coming!
+
+Make sure you check out:
+- shadertoy.com
+- three.js
