@@ -3,6 +3,7 @@
 import { onMounted, ref } from 'vue';
 import vertexShaderSource from "./vertex-shader.wgsl?raw";
 import fragmentShaderSource from "./fragment-shader.wgsl?raw";
+import { getImage } from '../../getImage.ts';
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 let enabled = defineModel<boolean>("enabled", { default: false });
@@ -107,13 +108,13 @@ onMounted(async () => {
         textureCanvas.width = image.naturalWidth;
         textureCanvas.height = image.naturalHeight;
         const textureCtx = textureCanvas.getContext('2d');
-        if(!textureCtx){
+        if (!textureCtx) {
             throw new Error('Could not create texture canvas');
         }
         textureCtx.drawImage(image, 0, 0);
         const imageData = textureCtx.getImageData(0, 0, textureCanvas.width, textureCanvas.height)
-        
-        device.queue.writeTexture( 
+
+        device.queue.writeTexture(
             { texture },
             imageData.data,
             { bytesPerRow: imageData.width * 4 },
@@ -134,18 +135,7 @@ onMounted(async () => {
         return { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformData, uniformBuffer };
     }
 
-    const imagePromise = new Promise<HTMLImageElement>((resolve, reject) => {
-        const img = document.createElement('img');
-        img.addEventListener('load', () => {
-            resolve(img);
-        });
-        img.addEventListener('error', (ev) => {
-            reject(ev);
-        });
-        img.src = 'images/smw.png';
-    });
-    
-    const img = await imagePromise;
+    const img = await getImage('smw.png');
     const { renderPassDescriptor, pipeline, vertexBuffer, uniformBindGroup, uniformBuffer, uniformData } = setup(img);
 
     let lastTime = 0;

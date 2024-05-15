@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
+import { getImage } from '../getImage.ts';
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 
-onMounted(() => {
+onMounted(async () => {
     const canvas = canvasRef.value;
     if (!canvas) {
         throw new Error("No canvas!");
@@ -23,14 +24,11 @@ onMounted(() => {
     const position = [0, 0];
     const velocity = [speed, speed];
 
-    const logo = document.createElement("img");
-    logo.src = "images/logo.svg";
-    logo.addEventListener("load", () => {
-        size[0] = logo.naturalWidth * scale;
-        size[1] = logo.naturalHeight * scale;
 
-        draw(0);
-    });
+    const logo = await getImage('logo.svg');
+    size[0] = logo.naturalWidth * scale;
+    size[1] = logo.naturalHeight * scale;
+    draw(0);
 
     function draw(time: number) {
         const dt = (time - lastTime) / 1000;

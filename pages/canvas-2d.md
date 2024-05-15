@@ -114,7 +114,11 @@ ctx.stroke();
 ctx.resetTransform();
 ```
 
-<!-- Come up with a way to explain transformations 
+<!-- 
+  Transformations are super handy because they mean you don't have to calculate
+  the position (or rotation or scale) of your objects when you draw them. You can 
+  just draw them in local world space and then position, rotate and scale them with 
+  a transform.
   SWITCH TO THE OTHER TAB FOR THIS
 -->
 
