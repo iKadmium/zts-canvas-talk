@@ -4,7 +4,6 @@ const canvasRef = ref<HTMLCanvasElement | null>(null);
 
 const padding = 8;
 const size = 64;
-const center = (size / 2) + padding;
 
 onMounted(() => {
     const canvas = canvasRef.value;
@@ -17,7 +16,7 @@ onMounted(() => {
         throw new Error("No context");
     }
 
-    const gradient = ctx.createRadialGradient(center, center, 0, center, center, size * 0.5);
+    const gradient = ctx.createLinearGradient(padding, padding, padding + size, padding + size);
     gradient.addColorStop(0.0, 'red');
     gradient.addColorStop(0.5, 'magenta');
     gradient.addColorStop(1.0, 'yellow');

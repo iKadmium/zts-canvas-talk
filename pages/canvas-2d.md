@@ -85,9 +85,9 @@ transition: slide-left
 
 # 2D Context - Gradients
 
-```ts
-const gradient = ctx.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd);
-// linear and conic gradients are also available
+```ts {*|1|3-4|6}
+const gradient = ctx.createLinearGradient(xStart, yStart, xEnd, yEnd);
+// radial and conic gradients are also available
 gradient.addColorStop(position, color); // position is a number from 0 to 1
 gradient.addColorStop(position, color); 
 // ...
@@ -105,10 +105,10 @@ transition: slide-left
 
 
 - We can apply transformations
-```ts
+```ts{*|2-3|4|6}
 ctx.beginPath();
-ctx.translate(64, 280);
-ctx.rotate(Math.PI / 4);
+ctx.translate(x, y);
+ctx.rotate(angleInRadians);
 ctx.rect(0, 0, 64, 64);
 ctx.stroke();
 ctx.resetTransform();
@@ -133,29 +133,7 @@ transition: slide-left
 transition: slide-left
 ---
 
-# 2D Animation - Back in the day...
-
-Setup:
-```ts
-function draw() {
-  ctx.resetTransform();
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  // update the logic
-
-  // draw a frame
-
-  requestAnimationFrame(() => draw());
-}
-
-requestAnimationFrame(() => draw());
-```
-
----
-transition: slide-left
----
-
-# Decouple Your Updates From Your Renders
+# 2D Animation - Setup
 
 ````md magic-move
 
@@ -202,6 +180,19 @@ requestAnimationFrame(() => draw());
 ```
 
 ````
+
+<!-- 
+  This is how we used to do it back in the day. You'd have a single thread which updated
+  your physics, logic and/or animations, and then did your rendering. This was, well, terrible,
+  but acceptable when you had predictable performance and a static target refresh rate. Today,
+  that's almost never the case. You get devices with refresh rates up to 480hz and higher,
+  and some in power saving mode at 40hz, and you never know what you'll be given.
+
+  When you do it all on a single thread, you end up with a locked refresh rate (if you're lucky),
+  and when you try to bring up the refresh rate, or if your frame rate dips, you get your animations
+  happening faster or slower than you mean to. 
+
+-->
 ---
 transition: slide-left
 ---
