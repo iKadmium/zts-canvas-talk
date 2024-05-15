@@ -36,6 +36,9 @@ jobs:
       - name: build
         run: npm run build -- --base zts-canvas-talk
 
+      - name: copy images
+        run: cp images dist -r
+
       - name: tar
         run: tar -zcf dist.tar.gz dist
 
