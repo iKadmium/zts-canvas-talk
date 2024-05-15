@@ -137,7 +137,7 @@ transition: slide-left
 
 Setup:
 ```ts
-function draw(time: number) {
+function draw() {
   ctx.resetTransform();
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
@@ -145,8 +145,10 @@ function draw(time: number) {
 
   // draw a frame
 
-  requestAnimationFrame(draw);
+  requestAnimationFrame(() => draw());
 }
+
+requestAnimationFrame(() => draw());
 ```
 
 ---
@@ -154,6 +156,24 @@ transition: slide-left
 ---
 
 # Decouple Your Updates From Your Renders
+
+````md magic-move
+
+```ts
+function draw() {
+  ctx.resetTransform();
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+  // update the logic
+
+  // draw a frame
+
+  requestAnimationFrame(() => draw());
+}
+
+requestAnimationFrame(() => draw());
+```
+
 
 ```ts
 //setup
@@ -181,7 +201,7 @@ window.setInterval(update, updateTime);
 requestAnimationFrame(() => draw());
 ```
 
-
+````
 ---
 transition: slide-left
 ---

@@ -22,7 +22,7 @@ transition: slide-left
 
 # Simple Scanline Shader
 
-```wgsl
+```wgsl {*|9|}
 @group(0) @binding(0) var<uniform> resolution: vec2<f32>;
 @group(0) @binding(1) var ourSampler: sampler;
 @group(0) @binding(2) var ourTexture: texture_2d<f32>;

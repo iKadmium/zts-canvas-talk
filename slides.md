@@ -2,6 +2,7 @@
 title: Canvas Talk
 theme: dracula
 layout: cover
+highlighter: shiki
 download: true
 ---
 
