@@ -24,7 +24,7 @@ onMounted(() => {
     const velocity = [speed, speed];
 
     const logo = document.createElement("img");
-    logo.src = "/images/logo.svg";
+    logo.src = "images/logo.svg";
     logo.addEventListener("load", () => {
         size[0] = logo.naturalWidth * scale;
         size[1] = logo.naturalHeight * scale;

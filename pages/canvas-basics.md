@@ -37,7 +37,7 @@
 ---
 transition: slide-left
 layout: image-right
-image: /images/chart.png
+image: images/chart.png
 ---
 
 # Where is Canvas being used?

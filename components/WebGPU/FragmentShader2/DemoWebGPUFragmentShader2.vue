@@ -142,7 +142,7 @@ onMounted(async () => {
         img.addEventListener('error', (ev) => {
             reject(ev);
         });
-        img.src = '/images/smw.png';
+        img.src = 'images/smw.png';
     });
     
     const img = await imagePromise;
