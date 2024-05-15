@@ -11,6 +11,13 @@ download: true
 
 ---
 transition: slide-left
+src: pages/pdf-note.md
+---
+
+# PDF Note
+
+---
+transition: slide-left
 src: pages/who-am-i.md
 ---
 

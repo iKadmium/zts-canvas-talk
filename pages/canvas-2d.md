@@ -119,7 +119,6 @@ ctx.resetTransform();
   the position (or rotation or scale) of your objects when you draw them. You can 
   just draw them in local world space and then position, rotate and scale them with 
   a transform.
-  SWITCH TO THE OTHER TAB FOR THIS
 -->
 
 ---
@@ -128,6 +127,8 @@ transition: slide-left
 # 2D Context - Transformations Demo
 
 <Demo2DTransformations />
+
+<!-- SWITCH TO THE OTHER TAB FOR THIS -->
 
 ---
 transition: slide-left
