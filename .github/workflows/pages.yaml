@@ -33,6 +33,9 @@ jobs:
       - name: get dependencies
         run: npm ci
 
+      - name: install Chromium stuff
+        run: npx playwright install-deps chromium
+
       - name: build
         run: npm run build -- --base zts-canvas-talk
 
